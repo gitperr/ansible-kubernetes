@@ -1,4 +1,12 @@
 ---
+- name: Install required packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items: "{{ apt_packages }}"
+
 - name: Change hostname
   ansible.builtin.hostname:
     name: "{{ ansible_host }}"
+    use: debian

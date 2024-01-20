@@ -3,6 +3,7 @@
 # Variables
 VENV := source venv/bin/activate && 
 REQUIREMENTS := requirements.txt
+VAULT := --vault-password-file .ansible_vault_key
 
 # Target: install dependencies from requirements.txt
 install:
@@ -30,4 +31,4 @@ help:
 ANSIBLE := $(VENV) ansible-playbook
 INVENTORY := -i inventories/hosts.ini
 general-config: install
-	$(ANSIBLE) general-config.yml $(INVENTORY)
+	$(ANSIBLE) general-config.yml $(INVENTORY) $(VAULT)
