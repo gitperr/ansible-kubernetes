@@ -1,0 +1,5 @@
+---
+- name: General config for pis
+  hosts: rpis
+  roles:
+    - general
