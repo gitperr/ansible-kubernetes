@@ -32,3 +32,6 @@ ANSIBLE := $(VENV) ansible-playbook
 INVENTORY := -i inventories/hosts.ini
 general-config: install
 	$(ANSIBLE) general-config.yml $(INVENTORY) $(VAULT)
+
+k3s: install
+	$(ANSIBLE) k3s.yml $(INVENTORY) $(VAULT)

@@ -1,3 +1,11 @@
 apt_packages:
     - sudo
     - python3
+
+rpi_cluster:
+    - hostname: rpi-control
+      ip: 192.168.0.174
+    - hostname: rpi-worker-1
+      ip: 192.168.0.200
+    - hostname: rpi-worker-2
+      ip: 192.168.0.201

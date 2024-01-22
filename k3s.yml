@@ -1,0 +1,6 @@
+---
+- name: Install k3s
+  become: true
+  hosts: rpis
+  roles:
+    - k3s
