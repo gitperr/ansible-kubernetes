@@ -4,6 +4,7 @@
 VENV := source venv/bin/activate && 
 REQUIREMENTS := requirements.txt
 VAULT := --vault-password-file .ansible_vault_key
+LIMIT := $(if $(limit),--limit=$(limit),)
 
 # Target: install dependencies from requirements.txt
 install:
@@ -34,4 +35,4 @@ general-config: install
 	$(ANSIBLE) general-config.yml $(INVENTORY) $(VAULT)
 
 k3s: install
-	$(ANSIBLE) k3s.yml $(INVENTORY) $(VAULT)
+	$(ANSIBLE) k3s.yml $(INVENTORY) $(VAULT) $(LIMIT)

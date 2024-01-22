@@ -1,8 +1,50 @@
 ---
 - name: Add IP address of all hosts to all hosts
-  lineinfile:
+  ansible.builtin.lineinfile:
     dest: /etc/hosts
     regexp: ".*{{ item }}$"
     line: "{{ item.ip }} {{ item.hostname }}"
     state: present
   with_items: "{{ rpi_cluster }}"
+
+- name: Install k3s server on control node
+  block:
+    - name: Download k3s script
+      ansible.builtin.get_url:
+        url: https://get.k3s.io
+        dest: /tmp/k3s-installer.sh
+        mode: "0755"
+    - name: Run k3s script
+      ansible.builtin.command: "./k3s-installer.sh"
+      args:
+        chdir: /tmp
+    - name: Retrieve the registration token
+      ansible.builtin.command: "cat /var/lib/rancher/k3s/server/node-token"
+      register: token_result
+    - name: Set node_token as fact
+      set_fact:
+        nodetoken: "{{ token_result.stdout }}"
+  when: "'control_rpi' in group_names"
+
+# - debug:
+#     msg:
+#       - "{{ hostvars['rpi-control'].nodetoken }}"
+
+- name: Install k3s agent on worker nodes
+  block:
+    - name: Download k3s script
+      ansible.builtin.get_url:
+        url: https://get.k3s.io
+        dest: /tmp/k3s-installer.sh
+        mode: "0755"
+    - name: Run k3s script
+      ansible.builtin.command: "./k3s-installer.sh"
+      args:
+        chdir: /tmp
+      environment:
+        K3S_URL: https://rpi-control:6443
+        K3S_TOKEN: "{{ hostvars['rpi-control'].nodetoken }}"
+      register: cmd_result
+    - debug:
+        msg: "{{ cmd_result }}"
+  when: "'worker_rpis' in group_names"
