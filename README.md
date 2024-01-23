@@ -29,3 +29,7 @@ rpi-worker-2   Ready    <none>                 6m52s   v1.28.5+k3s1
 rpi-control    Ready    control-plane,master   7m8s    v1.28.5+k3s1
 rpi-worker-1   Ready    <none>                 6m37s   v1.28.5+k3s1
 ```
+
+## Project ideas
+- [ ] Prometheus & Ruuvi weather station
+- [ ] Minecraft/Valheim
