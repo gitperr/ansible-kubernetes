@@ -26,10 +26,6 @@
         nodetoken: "{{ token_result.stdout }}"
   when: "'control_rpi' in group_names"
 
-# - debug:
-#     msg:
-#       - "{{ hostvars['rpi-control'].nodetoken }}"
-
 - name: Install k3s agent on worker nodes
   block:
     - name: Download k3s script
