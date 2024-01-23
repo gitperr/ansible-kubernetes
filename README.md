@@ -7,9 +7,10 @@ Ansible for deploying Kubernetes on Raspberry Pis. Currently heavily WIP.
 3- Install python, and sudo on the pi `apt install python3 sudo -y` 
 > You can get rid of steps 1-3 if you have already flashed a debian with a specific ssh key, sudo and python installed
 
-4- Clone this repo. On your ansible controller, create ~/.ssh/config file and add your pis there with their IPs, and alias them if you wish to  
-5- Add your pi to the `inventories/hosts.ini` file  
-6- You should be ready to run the ansibles now  
+4- Clone this repo on your ansible controller. 
+5- On your ansible controller, create `~/.ssh/config` file and add your pis there with their IPs, and alias them if you wish to  
+6- Add your pi to the `inventories/hosts.ini` file  
+7- You should be ready to run the ansibles now  
 
 ## Start the cluster
 - Not entirely idempotent yet, but if you run with clean pis that haven't run k3s before, it should work.  
