@@ -19,7 +19,7 @@ make k3s
 
 - You can ssh into the control node and check once it finishes:  
 ```shell
-ssh rpi-control && kubectl get nodes
+ssh rpi-control "kubectl get nodes"
 ```  
 output should look like that:  
 ```
