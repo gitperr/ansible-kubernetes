@@ -10,3 +10,17 @@ Ansible for deploying Kubernetes on Raspberry Pis. Currently heavily WIP.
 4- Create ~/.ssh/config file and add your pis there with their IPs, and alias them if you wish to  
 5- Add your pi to the `inventories/hosts.ini` file  
 6- You should be ready to run the ansibles now  
+
+## Start the cluster
+- Not entirely idempotent yet, but if you run with clean pis that haven't run k3s before, it should work.  
+```make k3s```
+
+- You can ssh into the control node and check once it finishes:  
+```ssh rpi-control && kubectl get nodes```  
+output should look like that:  
+```
+NAME           STATUS   ROLES                  AGE     VERSION
+rpi-worker-2   Ready    <none>                 6m52s   v1.28.5+k3s1
+rpi-control    Ready    control-plane,master   7m8s    v1.28.5+k3s1
+rpi-worker-1   Ready    <none>                 6m37s   v1.28.5+k3s1
+```
