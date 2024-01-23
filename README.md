@@ -13,10 +13,14 @@ Ansible for deploying Kubernetes on Raspberry Pis. Currently heavily WIP.
 
 ## Start the cluster
 - Not entirely idempotent yet, but if you run with clean pis that haven't run k3s before, it should work.  
-```make k3s```
+```shell
+make k3s
+```
 
 - You can ssh into the control node and check once it finishes:  
-```ssh rpi-control && kubectl get nodes```  
+```shell
+ssh rpi-control && kubectl get nodes
+```  
 output should look like that:  
 ```
 NAME           STATUS   ROLES                  AGE     VERSION
