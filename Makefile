@@ -36,3 +36,6 @@ general-config: install
 
 k3s: install
 	$(ANSIBLE) k3s.yml $(INVENTORY) $(VAULT) $(LIMIT)
+
+kube-prometheus: install
+	$(ANSIBLE) kube-prometheus.yml $(INVENTORY) $(VAULT) $(LIMIT)
