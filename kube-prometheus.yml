@@ -1,0 +1,6 @@
+---
+- name: Install prometheus to the cluster
+  become: true
+  hosts: rpi-control
+  roles:
+    - kube-prometheus
