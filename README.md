@@ -33,3 +33,7 @@ rpi-worker-1   Ready    <none>                 6m37s   v1.28.5+k3s1
 ## Project ideas
 - [ ] Prometheus & Ruuvi weather station
 - [ ] Minecraft/Valheim
+
+### Prometheus notes
+- Can start the kube-prometheus properly, but it still needs to be exposed with ingress
+- Certs might not be in order yet
