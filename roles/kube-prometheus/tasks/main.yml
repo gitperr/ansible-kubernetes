@@ -1,0 +1,28 @@
+---
+- name: Install git
+  ansible.builtin.apt:
+    name: git
+    state: present
+    update_cache: true
+
+- name: Create clone directory
+  ansible.builtin.file:
+    path: /home/prometheus
+    state: directory
+
+- name: Clone kube-prometheus repo
+  ansible.builtin.git:
+    repo: https://github.com/prometheus-operator/kube-prometheus.git
+    dest: /home/prometheus
+    single_branch: true
+    version: main
+
+- name: Start kube-prometheus
+  ansible.builtin.command: "{{ item }}"
+  args:
+    chdir: /home/prometheus
+  with_items: "{{ kube_prometheus_commands }}"
+  register: status
+
+- debug:
+    msg: "{{ status }}"
