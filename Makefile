@@ -37,5 +37,15 @@ general-config: install
 k3s: install
 	$(ANSIBLE) k3s.yml $(INVENTORY) $(VAULT) $(LIMIT)
 
+# TODO
+# remove-k3s: install
+# 	$(ANSIBLE) remove-k3s.yml $(INVENTORY) $(VAULT) $(LIMIT)	
+
 kube-prometheus: install
 	$(ANSIBLE) kube-prometheus.yml $(INVENTORY) $(VAULT) $(LIMIT)
+
+nginx-ingress: install
+	$(ANSIBLE) nginx-ingress.yml $(INVENTORY) $(VAULT) $(LIMIT)
+
+remove-kube-prometheus: install
+	$(ANSIBLE) remove-kube-prometheus.yml $(INVENTORY) $(VAULT) $(LIMIT)
