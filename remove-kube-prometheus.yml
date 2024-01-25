@@ -1,0 +1,6 @@
+---
+- name: Remove prometheus from the cluster
+  become: true
+  hosts: rpi-control
+  roles:
+    - kube-prometheus/remove
