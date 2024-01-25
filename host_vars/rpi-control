@@ -10,5 +10,9 @@ kube_prometheus_remove_commands:
 # Retrieved from https://github.com/prometheus-operator/prometheus-operator/tree/main?tab=readme-ov-file#quickstart
 prometheus_operator_install_commands:
     - "kubectl create -f bundle.yaml"
+
+prometheus_operator_remove_commands:
+    # There is one more here, we have to remove all of our custom resources first. TODO: Add that later
+    - "kubectl delete -f bundle.yaml"
 #---------------------------------------------------------------------------------------------------
 prometheus_operator_install_dir: /home/prometheus/prometheus-operator
