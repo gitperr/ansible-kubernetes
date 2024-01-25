@@ -1,0 +1,10 @@
+---
+- name: Remove kube-prometheus
+  ansible.builtin.command: "{{ item }}"
+  args:
+    chdir: /home/prometheus
+  with_items: "{{ kube_prometheus_remove_commands }}"
+  register: status
+
+- debug:
+    msg: "{{ status }}"

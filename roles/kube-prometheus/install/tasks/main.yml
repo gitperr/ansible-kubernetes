@@ -21,7 +21,7 @@
   ansible.builtin.command: "{{ item }}"
   args:
     chdir: /home/prometheus
-  with_items: "{{ kube_prometheus_commands }}"
+  with_items: "{{ kube_prometheus_install_commands }}"
   register: status
 
 - debug:
