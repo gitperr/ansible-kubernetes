@@ -1,0 +1,33 @@
+---
+- name: Install git
+  ansible.builtin.apt:
+    name: git
+    state: present
+    update_cache: true
+
+- name: Clean clone directory
+  ansible.builtin.file:
+    path: /home/prometheus
+    state: absent
+
+- name: Create a new clone directory
+  ansible.builtin.file:
+    path: "{{ prometheus_operator_install_dir }}"
+    state: directory
+
+- name: Clone prometheus-operator repo
+  ansible.builtin.git:
+    repo: https://github.com/prometheus-operator/prometheus-operator.git
+    dest: "{{ prometheus_operator_install_dir }}"
+    single_branch: true
+    version: main
+
+- name: Start prometheus-operator
+  ansible.builtin.command: "{{ item }}"
+  args:
+    chdir: "{{ prometheus_operator_install_dir }}"
+  with_items: "{{ prometheus_operator_install_commands }}"
+  register: status
+
+- debug:
+    msg: "{{ status }}"
