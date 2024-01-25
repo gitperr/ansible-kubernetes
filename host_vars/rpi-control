@@ -1,4 +1,7 @@
-kube_prometheus_commands:
+kube_prometheus_install_commands:
     - "kubectl apply --server-side -f manifests/setup"
     - "kubectl wait --for condition=Established --all CustomResourceDefinition --namespace=monitoring"
     - "kubectl apply -f manifests/"
+
+kube_prometheus_remove_commands:
+    - "kubectl delete --ignore-not-found=true -f manifests/ -f manifests/setup"
