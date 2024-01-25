@@ -61,3 +61,6 @@ remove-kube-prometheus: install
 
 remove-nginx-ingress: install
 	$(ANSIBLE) remove-nginx-ingress.yml $(INVENTORY) $(VAULT) $(LIMIT)
+
+remove-prometheus-operator: install
+	$(ANSIBLE) remove-prometheus-operator.yml $(INVENTORY) $(VAULT) $(LIMIT)	

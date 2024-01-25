@@ -3,4 +3,4 @@
   become: true
   hosts: rpi-control
   roles:
-    - prometheus-operator
+    - prometheus-operator/install
