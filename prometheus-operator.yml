@@ -1,0 +1,6 @@
+---
+- name: Install prometheus operator
+  become: true
+  hosts: rpi-control
+  roles:
+    - prometheus-operator
