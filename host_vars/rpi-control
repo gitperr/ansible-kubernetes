@@ -1,3 +1,4 @@
+# Retrieved from https://github.com/prometheus-operator/kube-prometheus?tab=readme-ov-file#quickstart
 kube_prometheus_install_commands:
     - "kubectl apply --server-side -f manifests/setup"
     - "kubectl wait --for condition=Established --all CustomResourceDefinition --namespace=monitoring"
@@ -5,3 +6,9 @@ kube_prometheus_install_commands:
 
 kube_prometheus_remove_commands:
     - "kubectl delete --ignore-not-found=true -f manifests/ -f manifests/setup"
+# ---------------------------------------------------------------------------------------------------
+# Retrieved from https://github.com/prometheus-operator/prometheus-operator/tree/main?tab=readme-ov-file#quickstart
+prometheus_operator_install_commands:
+    - "kubectl create -f bundle.yaml"
+#---------------------------------------------------------------------------------------------------
+prometheus_operator_install_dir: /home/prometheus/prometheus-operator
