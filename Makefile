@@ -31,15 +31,14 @@ help:
 # Ansible targets
 ANSIBLE := $(VENV) ansible-playbook
 INVENTORY := -i inventories/hosts.ini
+############################
+### Installation 		 ###
+############################
 general-config: install
 	$(ANSIBLE) general-config.yml $(INVENTORY) $(VAULT)
 
 k3s: install
 	$(ANSIBLE) k3s.yml $(INVENTORY) $(VAULT) $(LIMIT)
-
-# TODO
-# remove-k3s: install
-# 	$(ANSIBLE) remove-k3s.yml $(INVENTORY) $(VAULT) $(LIMIT)	
 
 kube-prometheus: install
 	$(ANSIBLE) kube-prometheus.yml $(INVENTORY) $(VAULT) $(LIMIT)
@@ -47,5 +46,18 @@ kube-prometheus: install
 nginx-ingress: install
 	$(ANSIBLE) nginx-ingress.yml $(INVENTORY) $(VAULT) $(LIMIT)
 
+prometheus-operator: install
+	$(ANSIBLE) prometheus-operator.yml $(INVENTORY) $(VAULT) $(LIMIT)
+
+########################
+### Removal          ###
+########################
+# TODO
+# remove-k3s: install
+# 	$(ANSIBLE) remove-k3s.yml $(INVENTORY) $(VAULT) $(LIMIT)	
+
 remove-kube-prometheus: install
 	$(ANSIBLE) remove-kube-prometheus.yml $(INVENTORY) $(VAULT) $(LIMIT)
+
+remove-nginx-ingress: install
+	$(ANSIBLE) remove-nginx-ingress.yml $(INVENTORY) $(VAULT) $(LIMIT)

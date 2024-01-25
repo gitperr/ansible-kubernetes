@@ -1,0 +1,7 @@
+---
+- name: Remove nginx ingress namespace (deleting the whole deployment)
+  ansible.builtin.command: "kubectl delete all --all -n ingress-nginx"
+  register: result
+
+- debug:
+    msg: "{{ result }}"

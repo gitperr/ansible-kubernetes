@@ -3,4 +3,4 @@
   become: true
   hosts: rpi-control
   roles:
-    - nginx-ingress
+    - nginx-ingress/install

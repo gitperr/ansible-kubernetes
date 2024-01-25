@@ -1,0 +1,6 @@
+---
+- name: Remove nginx-ingress
+  become: true
+  hosts: rpi-control
+  roles:
+    - nginx-ingress/remove
