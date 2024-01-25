@@ -29,6 +29,9 @@ rpi-worker-2   Ready    <none>                 6m52s   v1.28.5+k3s1
 rpi-control    Ready    control-plane,master   7m8s    v1.28.5+k3s1
 rpi-worker-1   Ready    <none>                 6m37s   v1.28.5+k3s1
 ```
+## Organization of the repo
+Currently, each role is split into two (install/remove) and has two caller plays at the root of repo, one for each.  
+To install something, simply call its make target, and to remove it, simply call the removal make target.
 
 ## Project ideas
 - [ ] Prometheus & Ruuvi weather station
