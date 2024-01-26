@@ -1,0 +1,10 @@
+---
+- name: Remove prometheus operator
+  ansible.builtin.command: "{{ item }}"
+  args:
+    chdir: "{{ prometheus_operator_install_dir }}"
+  with_items: "{{ prometheus_operator_remove_commands }}"
+  register: status
+
+- debug:
+    msg: "{{ status }}"
