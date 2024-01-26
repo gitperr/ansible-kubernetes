@@ -1,9 +1,12 @@
 ---
-- name: Install git
+- name: Install required packages
   ansible.builtin.apt:
-    name: git
+    name: "{{ item }}"
     state: present
     update_cache: true
+  with_items:
+    - git
+    - jq
 
 - name: Clean clone directory
   ansible.builtin.file:
@@ -15,18 +18,11 @@
     path: "{{ prometheus_operator_install_dir }}"
     state: directory
 
-- name: Clone prometheus-operator repo
-  ansible.builtin.git:
-    repo: https://github.com/prometheus-operator/prometheus-operator.git
-    dest: "{{ prometheus_operator_install_dir }}"
-    single_branch: true
-    version: main
-
 - name: Start prometheus-operator
-  ansible.builtin.command: "{{ item }}"
-  args:
-    chdir: "{{ prometheus_operator_install_dir }}"
-  with_items: "{{ prometheus_operator_install_commands }}"
+  ansible.builtin.shell: "{{ item }}"
+  with_items:
+    # too long
+    - "curl -sL https://github.com/prometheus-operator/prometheus-operator/releases/download/$(curl -s https://api.github.com/repos/prometheus-operator/prometheus-operator/releases/latest | jq -cr .tag_name)/bundle.yaml | kubectl create -f -"
   register: status
 
 - debug:
