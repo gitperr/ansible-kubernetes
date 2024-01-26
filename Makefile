@@ -49,6 +49,8 @@ nginx-ingress: install
 prometheus-operator: install
 	$(ANSIBLE) prometheus-operator.yml $(INVENTORY) $(VAULT) $(LIMIT)
 
+prometheus-operator-example: install
+	$(ANSIBLE) prometheus-operator-example.yml $(INVENTORY) $(VAULT) $(LIMIT)
 ########################
 ### Removal          ###
 ########################
