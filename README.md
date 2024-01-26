@@ -38,5 +38,6 @@ To install something, simply call its make target, and to remove it, simply call
 - [ ] Minecraft/Valheim
 
 ### Prometheus notes
-- Can start the kube-prometheus properly, but it still needs to be exposed with ingress
-- Certs might not be in order yet
+- Can start the kube-prometheus properly, but it still needs to be exposed with ingress --> dropped for now
+- Certs might not be in order yet --> dropped for now
+- Prometheus operator works nicely, better work with this before moving onto kube-prometheus
