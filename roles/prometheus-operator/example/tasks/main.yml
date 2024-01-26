@@ -1,0 +1,25 @@
+---
+- name: Create example app directory
+  ansible.builtin.file:
+    path: "{{ prometheus_operator_install_dir }}/example-app"
+    state: directory
+
+- name: Send example app config out
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ prometheus_operator_install_dir }}/example-app"
+    remote_src: false
+  with_fileglob: "example-app-*.yml"
+
+- name: Find files in example app directory
+  ansible.builtin.find:
+    path: "{{ prometheus_operator_install_dir }}/example-app"
+  register: find_result
+
+- name: Deploy example app with prometheus
+  ansible.builtin.command: "kubectl apply -f {{ item.path }}"
+  with_items: "{{ find_result.files }}"
+  register: status
+
+- debug:
+    msg: "{{ status }}"
