@@ -1,0 +1,6 @@
+---
+- name: Remove docker registry
+  become: true
+  hosts: rpi-control
+  roles:
+    - docker-registry/remove
