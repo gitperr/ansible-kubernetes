@@ -51,6 +51,10 @@ prometheus-operator: install
 
 prometheus-operator-example: install
 	$(ANSIBLE) prometheus-operator-example.yml $(INVENTORY) $(VAULT) $(LIMIT)
+
+docker-registry: install 
+	$(ANSIBLE) docker-registry.yml $(INVENTORY) $(VAULT) $(LIMIT)
+
 ########################
 ### Removal          ###
 ########################
@@ -66,3 +70,6 @@ remove-nginx-ingress: install
 
 remove-prometheus-operator: install
 	$(ANSIBLE) remove-prometheus-operator.yml $(INVENTORY) $(VAULT) $(LIMIT)	
+
+remove-docker-registry: install 
+	$(ANSIBLE) remove-docker-registry.yml $(INVENTORY) $(VAULT) $(LIMIT)

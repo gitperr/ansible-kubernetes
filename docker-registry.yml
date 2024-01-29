@@ -1,0 +1,6 @@
+---
+- name: Install docker registry
+  become: true
+  hosts: rpi-control
+  roles:
+    - docker-registry/install
