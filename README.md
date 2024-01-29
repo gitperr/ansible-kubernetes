@@ -33,6 +33,10 @@ rpi-worker-1   Ready    <none>                 6m37s   v1.28.5+k3s1
 Currently, each role is split into two (install/remove) and has two caller plays at the root of repo, one for each.  
 To install something, simply call its make target, and to remove it, simply call the removal make target.
 
+## Push images to the cluster's docker registry
+> Suboptimal, but serves the purpose for now.  
+```sudo docker tag <image> rpi-control:31000/<image> && sudo docker push rpi-control:31000/<image>```
+
 ## Project ideas
 - [ ] Prometheus & Ruuvi weather station
 - [ ] Minecraft/Valheim
