@@ -34,8 +34,10 @@ Currently, each role is split into two (install/remove) and has two caller plays
 To install something, simply call its make target, and to remove it, simply call the removal make target.
 
 ## Push images to the cluster's docker registry
-> Suboptimal, but serves the purpose for now.  
-```sudo docker tag <image> rpi-control:31000/<image> && sudo docker push rpi-control:31000/<image>```
+Suboptimal, but serves the purpose for now.    
+```shell
+sudo docker tag <image> rpi-control:31000/<image> && sudo docker push rpi-control:31000/<image>
+```
 
 ## Project ideas
 - [ ] Prometheus & Ruuvi weather station
