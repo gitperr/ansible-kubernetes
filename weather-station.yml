@@ -1,0 +1,6 @@
+---
+- name: Install weather station to be scraped by prometheus
+  become: true
+  hosts: rpis
+  roles:
+    - prometheus-operator/weather-station/install

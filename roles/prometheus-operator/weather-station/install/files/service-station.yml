@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: weather-station
+  labels:
+    app: weather-station
+spec:
+  selector:
+    app: weather-station
+  ports:
+    - name: metrics
+      port: 8000

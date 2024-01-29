@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: weather-station
+  labels:
+    sensor: ruuvi
+    team: frontend
+spec:
+  selector:
+    matchLabels:
+      app: weather-station
+  endpoints:
+    - port: metrics

@@ -1,0 +1,9 @@
+mirrors:
+    "rpi-control:31000":
+        endpoint:
+            - "http://rpi-control:31000"
+
+configs:
+    "rpi-control:31000":
+        tls:
+            insecure_skip_verify: true

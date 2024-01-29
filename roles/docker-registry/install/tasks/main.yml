@@ -8,6 +8,7 @@
   ansible.builtin.copy:
     src: "{{ item }}"
     dest: /home/deployments/registry
+    remote_src: false
   with_fileglob: "*-registry.yml"
 
 - name: Start docker registry

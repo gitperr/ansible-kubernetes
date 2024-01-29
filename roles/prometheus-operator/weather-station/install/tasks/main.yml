@@ -1,0 +1,61 @@
+---
+- name: Check if registries.yaml was pushed before
+  ansible.builtin.stat:
+    path: /etc/rancher/k3s/registries.yaml
+  register: registries
+
+- name: registries.yaml tasks for worker nodes
+  block:
+    - name: Create docker registries.yaml
+      ansible.builtin.file:
+        path: /etc/rancher/k3s/
+        state: directory
+
+    - name: Send out registries.yaml so workers can pull from registry without https
+      ansible.builtin.copy:
+        src: registries.yaml
+        dest: /etc/rancher/k3s/registries.yaml
+        remote_src: false
+
+    - name: Restart k3s-agent on workers
+      ansible.builtin.systemd_service:
+        state: restarted
+        daemon_reload: true
+        name: k3s-agent
+      when: "'worker_rpis' in group_names"
+
+    - name: Restart k3s-server on controller
+      ansible.builtin.systemd_service:
+        state: restarted
+        daemon_reload: true
+        name: k3s
+      when: "'control_rpi' in group_names"
+  when: not registries.stat.exists
+
+- name: Deploy weather station
+  block:
+    - name: Create weather station directory
+      ansible.builtin.file:
+        path: "{{ prometheus_operator_install_dir }}/weather-station"
+        state: directory
+
+    - name: Send weather station config out
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "{{ prometheus_operator_install_dir }}/weather-station"
+        remote_src: false
+      with_fileglob: "*-station.yml"
+
+    - name: Find files in weather station directory
+      ansible.builtin.find:
+        path: "{{ prometheus_operator_install_dir }}/weather-station"
+      register: find_result
+
+    - name: Deploy weather station to be scraped by prometheus
+      ansible.builtin.command: "kubectl apply -f {{ item.path }}"
+      with_items: "{{ find_result.files }}"
+      register: status
+
+    - debug:
+        msg: "{{ status }}"
+  when: "'control_rpi' in group_names"

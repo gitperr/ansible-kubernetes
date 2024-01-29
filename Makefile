@@ -55,6 +55,9 @@ prometheus-operator-example: install
 docker-registry: install 
 	$(ANSIBLE) docker-registry.yml $(INVENTORY) $(VAULT) $(LIMIT)
 
+weather-station: install 
+	$(ANSIBLE) weather-station.yml $(INVENTORY) $(VAULT) $(LIMIT)		
+
 ########################
 ### Removal          ###
 ########################
@@ -73,3 +76,6 @@ remove-prometheus-operator: install
 
 remove-docker-registry: install 
 	$(ANSIBLE) remove-docker-registry.yml $(INVENTORY) $(VAULT) $(LIMIT)
+
+remove-weather-station: install 
+	$(ANSIBLE) remove-weather-station.yml $(INVENTORY) $(VAULT) $(LIMIT)	

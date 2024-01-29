@@ -1,0 +1,18 @@
+---
+- name: Find files in weather station directory
+  ansible.builtin.find:
+    path: "{{ prometheus_operator_install_dir }}/weather-station"
+  register: find_result
+
+- name: Remove weather station deployment
+  ansible.builtin.command: "kubectl delete -f {{ item.path }}"
+  with_items: "{{ find_result.files }}"
+  register: status
+
+- name: Delete weather station directory
+  ansible.builtin.file:
+    path: "{{ prometheus_operator_install_dir }}/weather-station"
+    state: absent
+
+- debug:
+    msg: "{{ status }}"

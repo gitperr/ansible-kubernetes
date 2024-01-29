@@ -1,0 +1,6 @@
+---
+- name: Remove weather station
+  become: true
+  hosts: rpi-control
+  roles:
+    - prometheus-operator/weather-station/remove
