@@ -1,0 +1,17 @@
+---
+- name: Delete docker registry
+  ansible.builtin.shell: "{{ item }}"
+  args:
+    chdir: /home/deployments/registry
+  with_items:
+    - "kubectl delete -f deployment-registry.yml"
+    - "kubectl delete -f nodeport-registry.yml"
+  register: status
+
+- name: Delete deployment directory
+  ansible.builtin.file:
+    path: /home/deployments/registry
+    state: absent
+
+- debug:
+    msg: "{{ status }}"

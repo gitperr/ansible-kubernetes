@@ -1,0 +1,23 @@
+---
+- name: Create deployment directory
+  ansible.builtin.file:
+    path: /home/deployments/registry
+    state: directory
+
+- name: Send docker registry manifest
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /home/deployments/registry
+  with_fileglob: "*-registry.yml"
+
+- name: Start docker registry
+  ansible.builtin.shell: "{{ item }}"
+  args:
+    chdir: /home/deployments/registry
+  with_items:
+    - "kubectl apply -f deployment-registry.yml"
+    - "kubectl apply -f nodeport-registry.yml"
+  register: status
+
+- debug:
+    msg: "{{ status }}"
