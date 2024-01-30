@@ -42,6 +42,7 @@ sudo docker tag <image> rpi-control:31000/<image> && sudo docker push rpi-contro
 ## Project ideas
 - [ ] Prometheus & Ruuvi weather station
 - [ ] Minecraft/Valheim
+- [ ] Cluster monitoring (all apps running on it & health status...)
 
 ### Prometheus notes
 - Can start the kube-prometheus properly, but it still needs to be exposed with ingress --> dropped for now
