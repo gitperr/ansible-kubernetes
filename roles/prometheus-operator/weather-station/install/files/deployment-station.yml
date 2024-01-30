@@ -14,7 +14,15 @@ spec:
     spec:
       containers:
         - name: weather-station
-          image: rpi-control:31000/alpine-ruuvi
+          image: rpi-control:31000/alpine-ruuvi:arm
+          command: ["python3", "main.py"]
           ports:
             - name: metrics
               containerPort: 8000
+          volumeMounts:
+            - name: dbus-volume
+              mountPath: /var/run/dbus
+      volumes:
+        - name: dbus-volume
+          hostPath:
+            path: /var/run/dbus

@@ -5,6 +5,7 @@ metadata:
   labels:
     alper: test
 spec:
+  serviceAccountName: prometheus
   serviceMonitorSelector:
     matchLabels:
       team: frontend

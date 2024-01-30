@@ -46,6 +46,12 @@
         remote_src: false
       with_fileglob: "*-station.yml"
 
+    - name: Send prometheus config with rbac handled
+      ansible.builtin.copy:
+        src: prometheus-rbac.yml
+        dest: "{{ prometheus_operator_install_dir }}/weather-station"
+        remote_src: false
+
     - name: Find files in weather station directory
       ansible.builtin.find:
         path: "{{ prometheus_operator_install_dir }}/weather-station"
