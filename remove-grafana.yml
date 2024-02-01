@@ -1,0 +1,6 @@
+---
+- name: Remove grafana
+  become: true
+  hosts: rpi-control
+  roles:
+    - grafana/remove

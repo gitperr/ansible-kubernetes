@@ -1,0 +1,6 @@
+---
+- name: Install grafana
+  become: true
+  hosts: rpi-control
+  roles:
+    - grafana/install
