@@ -1,0 +1,27 @@
+---
+- name: Create a new deployment directory for grafana
+  ansible.builtin.file:
+    path: "{{ prometheus_operator_install_dir }}/grafana"
+    state: directory
+
+- name: Send out grafana manifests
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ prometheus_operator_install_dir }}/grafana"
+  with_items:
+    - "nodeport.yml"
+    - "configmap.yml"
+    - "deployment.yml"
+
+- name: List files in grafana deployment directory
+  ansible.builtin.find:
+    path: "{{ prometheus_operator_install_dir }}/grafana"
+  register: find_result
+
+- name: Apply grafana manifests
+  ansible.builtin.command: "kubectl apply -f {{ item.path }}"
+  with_items: "{{ find_result.files }}"
+  register: status
+
+- debug:
+    msg: "{{ status }}"

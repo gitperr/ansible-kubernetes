@@ -1,0 +1,11 @@
+---
+- name: Remove grafana
+  ansible.builtin.command: "{{ item }}"
+  args:
+    chdir: "{{ prometheus_operator_install_dir }}/grafana"
+  with_items:
+    - "kubectl delete -f {{ grafana_manifest }}"
+  register: status
+
+- debug:
+    msg: "{{ status }}"
