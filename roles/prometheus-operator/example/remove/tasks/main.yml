@@ -1,0 +1,18 @@
+---
+- name: Find files in example app directory
+  ansible.builtin.find:
+    path: "{{ prometheus_operator_install_dir }}/example-app"
+  register: find_result
+
+- name: Remove example app
+  ansible.builtin.command: "kubectl delete -f {{ item.path }}"
+  with_items: "{{ find_result.files }}"
+  register: status
+
+- name: Remove example app directory
+  ansible.builtin.file:
+    path: "{{ prometheus_operator_install_dir }}/example-app"
+    state: absent
+
+- debug:
+    msg: "{{ status }}"

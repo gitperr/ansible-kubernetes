@@ -8,12 +8,7 @@
     - git
     - jq
 
-- name: Clean clone directory
-  ansible.builtin.file:
-    path: /home/prometheus
-    state: absent
-
-- name: Create a new clone directory
+- name: Create prometheus operator directory
   ansible.builtin.file:
     path: "{{ prometheus_operator_install_dir }}"
     state: directory
@@ -23,7 +18,27 @@
   with_items:
     # too long
     - "curl -sL https://github.com/prometheus-operator/prometheus-operator/releases/download/$(curl -s https://api.github.com/repos/prometheus-operator/prometheus-operator/releases/latest | jq -cr .tag_name)/bundle.yaml | kubectl create -f -"
+  # if it already exists, just ignore the errors
+  ignore_errors: true
   register: status
+
+- name: Send out prometheus files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ prometheus_operator_install_dir }}"
+    remote_src: false
+  with_items:
+    - "nodeport.yml"
+    - "prometheus.yml"
+
+- name: Find sent files
+  ansible.builtin.find:
+    path: "{{ prometheus_operator_install_dir }}"
+  register: find_result
+
+- name: Apply prometheus manifests
+  ansible.builtin.command: "kubectl apply -f {{ item.path }}"
+  with_items: "{{ find_result.files }}"
 
 - debug:
     msg: "{{ status }}"

@@ -1,0 +1,6 @@
+---
+- name: Remove prometheus operator example app
+  become: true
+  hosts: rpi-control
+  roles:
+    - prometheus-operator/example/remove
