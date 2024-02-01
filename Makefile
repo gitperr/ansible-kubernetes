@@ -18,6 +18,7 @@ venv:
 	python3 -m venv venv
 
 # Target: help - display available targets
+# TODO: Improve the help
 help:
 	@echo "Available targets:"
 	@echo "  make venv        - Create a Python virtual environment"
@@ -55,8 +56,11 @@ prometheus-operator-example: install
 docker-registry: install 
 	$(ANSIBLE) docker-registry.yml $(INVENTORY) $(VAULT) $(LIMIT)
 
-weather-station: install 
-	$(ANSIBLE) weather-station.yml $(INVENTORY) $(VAULT) $(LIMIT)		
+weather-station: install
+	$(ANSIBLE) weather-station.yml $(INVENTORY) $(VAULT) $(LIMIT)	
+
+grafana: install 
+	$(ANSIBLE) grafana.yml $(INVENTORY) $(VAULT) $(LIMIT)		
 
 ########################
 ### Removal          ###
@@ -64,6 +68,9 @@ weather-station: install
 # TODO
 # remove-k3s: install
 # 	$(ANSIBLE) remove-k3s.yml $(INVENTORY) $(VAULT) $(LIMIT)	
+
+remove-prometheus-operator-example: install
+	$(ANSIBLE) remove-prometheus-operator-example.yml $(INVENTORY) $(VAULT) $(LIMIT)
 
 remove-kube-prometheus: install
 	$(ANSIBLE) remove-kube-prometheus.yml $(INVENTORY) $(VAULT) $(LIMIT)
@@ -79,3 +86,6 @@ remove-docker-registry: install
 
 remove-weather-station: install 
 	$(ANSIBLE) remove-weather-station.yml $(INVENTORY) $(VAULT) $(LIMIT)	
+
+remove-grafana: install 
+	$(ANSIBLE) remove-grafana.yml $(INVENTORY) $(VAULT) $(LIMIT)	
