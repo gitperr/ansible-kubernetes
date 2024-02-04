@@ -22,7 +22,12 @@ spec:
             - name: grafana-datasource-config
               mountPath: /etc/grafana/provisioning/datasources
               readOnly: true
+            - name: grafana-dashboards-volume
+              mountPath: /etc/grafana/provisioning/dashboards
       volumes:
         - name: grafana-datasource-config
           configMap:
             name: grafana-datasource-config
+        - name: grafana-dashboards-volume
+          hostPath: 
+            path: /home/prometheus/prometheus-operator/grafana/dashboards 

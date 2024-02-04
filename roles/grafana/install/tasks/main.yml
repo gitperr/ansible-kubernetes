@@ -1,7 +1,7 @@
 ---
 - name: Create a new deployment directory for grafana
   ansible.builtin.file:
-    path: "{{ prometheus_operator_install_dir }}/grafana"
+    path: "{{ prometheus_operator_install_dir }}/grafana/dashboards"
     state: directory
 
 - name: Send out grafana manifests
@@ -12,6 +12,18 @@
     - "nodeport.yml"
     - "configmap.yml"
     - "deployment.yml"
+
+- name: Send out grafana dashboard config
+  ansible.builtin.copy:
+    src: "dashboards-config.yml"
+    dest: "{{ prometheus_operator_install_dir }}/grafana/dashboards"
+
+- name: Send out dashboard json files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ prometheus_operator_install_dir }}/grafana/dashboards"
+  with_fileglob:
+    - "*-dashboard.json"
 
 - name: List files in grafana deployment directory
   ansible.builtin.find:
