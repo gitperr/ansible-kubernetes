@@ -40,11 +40,13 @@ sudo docker tag <image> rpi-control:31000/<image> && sudo docker push rpi-contro
 ```
 
 ## Project ideas
-- [ ] Prometheus & Ruuvi weather station
+- [x] Prometheus & Ruuvi weather station
 - [ ] Minecraft/Valheim
 - [ ] Cluster monitoring (all apps running on it & health status...)
 
 ### Prometheus notes
 - Can start the kube-prometheus properly, but it still needs to be exposed with ingress --> dropped for now
 - Certs might not be in order yet --> dropped for now
-- Prometheus operator works nicely, better work with this before moving onto kube-prometheus
+- Prometheus operator works nicely, better work with this before moving onto kube-prometheus --> dropped kube-prometheus
+- Monitoring should be set up, https://github.com/cablespaghetti/k3s-monitoring  
+has some examples
