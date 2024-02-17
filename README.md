@@ -50,3 +50,6 @@ sudo docker tag <image> rpi-control:31000/<image> && sudo docker push rpi-contro
 - Prometheus operator works nicely, better work with this before moving onto kube-prometheus --> dropped kube-prometheus
 - Monitoring should be set up, https://github.com/cablespaghetti/k3s-monitoring  
 has some examples
+
+### Storage
+- Proper storage needs to be figured out. Ceph & Rook might be good.
