@@ -1,0 +1,24 @@
+---
+- name: Remove kube-state-metrics from the cluster
+  ansible.builtin.command: "{{ item }}"
+  args:
+    chdir: "{{ prometheus_operator_install_dir }}/kube-state-metrics"
+  with_items:
+    - "kubectl delete -f examples/standard"
+  register: result
+
+- debug:
+    msg: "{{ result }}"
+
+- name: Delete kube-state-metrics servicemonitor
+  block:
+    - name: Delete the ServiceMonitor config
+      ansible.builtin.command: "kubectl delete -f servmonitor.yml"
+      args:
+        chdir: "{{ prometheus_operator_install_dir }}/kube-state-metrics"
+      register: servmonitor
+
+    - name: Delete kube-state-metrics directory
+      ansible.builtin.file:
+        path: "{{ prometheus_operator_install_dir }}/kube-state-metrics"
+        state: absent

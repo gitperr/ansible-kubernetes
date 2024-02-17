@@ -1,0 +1,35 @@
+---
+- name: Clone kube-state-metrics
+  ansible.builtin.git:
+    repo: https://github.com/kubernetes/kube-state-metrics.git
+    dest: "{{ prometheus_operator_install_dir }}/kube-state-metrics"
+    single_branch: true
+    version: main
+
+- name: Start kube-state-metrics in the cluster
+  ansible.builtin.command: "{{ item }}"
+  args:
+    chdir: "{{ prometheus_operator_install_dir }}/kube-state-metrics"
+  with_items:
+    - "kubectl apply -f examples/standard"
+  register: result
+
+- debug:
+    msg: "{{ result }}"
+
+- name: Enable prometheus to scrape kube-state-metrics endpoints
+  block:
+    - name: Send out the ServiceMonitor config file
+      ansible.builtin.copy:
+        src: servmonitor.yml
+        dest: "{{ prometheus_operator_install_dir }}/kube-state-metrics"
+        remote_src: false
+
+    - name: Apply the ServiceMonitor config
+      ansible.builtin.command: "kubectl apply -f servmonitor.yml"
+      args:
+        chdir: "{{ prometheus_operator_install_dir }}/kube-state-metrics"
+      register: servmonitor
+
+    - debug:
+        msg: "{{ servmonitor }}"
