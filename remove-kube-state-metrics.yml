@@ -1,0 +1,6 @@
+---
+- name: Remove kube-state-metrics from the cluster
+  become: true
+  hosts: rpi-control
+  roles:
+    - kube-state-metrics/remove

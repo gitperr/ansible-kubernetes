@@ -1,0 +1,6 @@
+---
+- name: Install kube-state-metrics to the cluster
+  become: true
+  hosts: rpi-control
+  roles:
+    - kube-state-metrics/install
