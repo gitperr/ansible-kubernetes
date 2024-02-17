@@ -41,6 +41,9 @@ subjects:
   - kind: ServiceAccount
     name: prometheus
     namespace: default
+  - kind: ServiceAccount
+    name: prometheus
+    namespace: kube-system
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
