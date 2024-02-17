@@ -60,7 +60,10 @@ weather-station: install
 	$(ANSIBLE) weather-station.yml $(INVENTORY) $(VAULT) $(LIMIT)	
 
 grafana: install 
-	$(ANSIBLE) grafana.yml $(INVENTORY) $(VAULT) $(LIMIT)		
+	$(ANSIBLE) grafana.yml $(INVENTORY) $(VAULT) $(LIMIT)
+
+kube-state-metrics: install
+	$(ANSIBLE) kube-state-metrics.yml $(INVENTORY) $(VAULT) $(LIMIT)	
 
 ########################
 ### Removal          ###
@@ -88,4 +91,7 @@ remove-weather-station: install
 	$(ANSIBLE) remove-weather-station.yml $(INVENTORY) $(VAULT) $(LIMIT)	
 
 remove-grafana: install 
-	$(ANSIBLE) remove-grafana.yml $(INVENTORY) $(VAULT) $(LIMIT)	
+	$(ANSIBLE) remove-grafana.yml $(INVENTORY) $(VAULT) $(LIMIT)
+
+remove-kube-state-metrics: install
+	$(ANSIBLE) remove-kube-state-metrics.yml $(INVENTORY) $(VAULT) $(LIMIT)	
