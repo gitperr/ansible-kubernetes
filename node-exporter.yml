@@ -1,0 +1,6 @@
+---
+- name: Install node exporter
+  become: true
+  hosts: rpi-control
+  roles:
+    - node-exporter/install
