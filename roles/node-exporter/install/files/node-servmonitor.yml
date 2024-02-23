@@ -10,3 +10,8 @@ spec:
       app: node-exporter
   endpoints:
     - port: web
+      relabelings:
+        - sourceLabels:
+            - __meta_kubernetes_pod_node_name
+          action: replace
+          targetLabel: instance
