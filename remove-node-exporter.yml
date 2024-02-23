@@ -1,0 +1,6 @@
+---
+- name: Remove node exporter
+  become: true
+  hosts: rpi-control
+  roles:
+    - node-exporter/remove

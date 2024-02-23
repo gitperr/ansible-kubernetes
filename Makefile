@@ -63,7 +63,10 @@ grafana: install
 	$(ANSIBLE) grafana.yml $(INVENTORY) $(VAULT) $(LIMIT)
 
 kube-state-metrics: install
-	$(ANSIBLE) kube-state-metrics.yml $(INVENTORY) $(VAULT) $(LIMIT)	
+	$(ANSIBLE) kube-state-metrics.yml $(INVENTORY) $(VAULT) $(LIMIT)
+
+node-exporter: install
+	$(ANSIBLE) node-exporter.yml $(INVENTORY) $(VAULT) $(LIMIT)		
 
 ########################
 ### Removal          ###
@@ -95,3 +98,6 @@ remove-grafana: install
 
 remove-kube-state-metrics: install
 	$(ANSIBLE) remove-kube-state-metrics.yml $(INVENTORY) $(VAULT) $(LIMIT)	
+
+remove-node-exporter: install
+	$(ANSIBLE) remove-node-exporter.yml $(INVENTORY) $(VAULT) $(LIMIT)	

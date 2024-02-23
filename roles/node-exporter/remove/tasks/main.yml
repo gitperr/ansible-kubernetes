@@ -1,0 +1,15 @@
+---
+- name: List the manifests in node exporter directory
+  ansible.builtin.find:
+    path: "{{ prometheus_operator_install_dir }}/node_exporter"
+  register: find_result
+
+- name: Remove the manifests
+  ansible.builtin.command: "kubectl delete -f {{ item.path }}"
+  with_items: "{{ find_result.files }}"
+  register: status
+
+- name: Remove the node exporter deployment directory
+  ansible.builtin.file:
+    path: "{{ prometheus_operator_install_dir }}/node_exporter"
+    state: absent

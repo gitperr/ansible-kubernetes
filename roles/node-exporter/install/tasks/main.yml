@@ -1,0 +1,25 @@
+---
+- name: Create directory for node exporter
+  ansible.builtin.file:
+    path: "{{ prometheus_operator_install_dir }}/node_exporter"
+    state: directory
+
+- name: Send node exporter manifests over
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ prometheus_operator_install_dir }}/node_exporter"
+    remote_src: false
+  with_fileglob: "node-*.yml"
+
+- name: List the manifests in node exporter directory
+  ansible.builtin.find:
+    path: "{{ prometheus_operator_install_dir }}/node_exporter"
+  register: find_result
+
+- name: Apply node exporter manifests
+  ansible.builtin.command: "kubectl apply -f {{ item.path }}"
+  with_items: "{{ find_result.files }}"
+  register: status
+
+- debug:
+    msg: "{{ status }}"
