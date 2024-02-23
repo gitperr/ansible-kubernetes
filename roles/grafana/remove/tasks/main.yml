@@ -1,11 +1,20 @@
 ---
+- name: Find files in example app directory
+  ansible.builtin.find:
+    path: "{{ prometheus_operator_install_dir }}/grafana"
+  register: find_result
+
 - name: Remove grafana
-  ansible.builtin.command: "{{ item }}"
+  ansible.builtin.command: "kubectl delete -f {{ item.path }}"
   args:
     chdir: "{{ prometheus_operator_install_dir }}/grafana"
-  with_items:
-    - "kubectl delete -f {{ grafana_manifest }}"
+  with_items: "{{ find_result.files }}"
   register: status
+
+- name: Remove grafana deployment directory
+  ansible.builtin.file:
+    path: "{{ prometheus_operator_install_dir }}/grafana"
+    state: absent
 
 - debug:
     msg: "{{ status }}"
