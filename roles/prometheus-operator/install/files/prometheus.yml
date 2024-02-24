@@ -5,7 +5,7 @@ metadata:
   labels:
     alper: test
 spec:
-  retention: 90d
+  retention: 3650d
   serviceAccountName: prometheus
   serviceMonitorSelector:
     matchLabels:
