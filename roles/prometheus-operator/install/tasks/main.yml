@@ -28,6 +28,7 @@
     dest: "{{ prometheus_operator_install_dir }}"
     remote_src: false
   with_items:
+    - "pv.yml"
     - "nodeport.yml"
     - "prometheus.yml"
 

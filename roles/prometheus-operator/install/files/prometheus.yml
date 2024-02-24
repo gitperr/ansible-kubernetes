@@ -5,6 +5,11 @@ metadata:
   labels:
     alper: test
 spec:
+  containers:
+    - name: prometheus
+      volumeMounts:
+        - name: prom-data
+          mountPath: /prometheus
   retention: 3650d
   serviceAccountName: prometheus
   serviceMonitorSelector:
@@ -14,3 +19,7 @@ spec:
     requests:
       memory: 400Mi
   enableAdminAPI: false
+  volumes:
+    - name: prom-data
+      persistentVolumeClaim:
+        claimName: prom-pv
