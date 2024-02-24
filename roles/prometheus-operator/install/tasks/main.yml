@@ -13,11 +13,6 @@
     path: "{{ prometheus_operator_install_dir }}"
     state: directory
 
-- name: Create prometheus data directory
-  ansible.builtin.file:
-    path: "/home/prometheus/data"
-    state: directory
-
 - name: Start prometheus-operator
   ansible.builtin.shell: "{{ item }}"
   with_items:
