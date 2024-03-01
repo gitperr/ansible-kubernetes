@@ -1,2 +1,3 @@
 *venv
 .ansible_vault_key
+configmap.yml
