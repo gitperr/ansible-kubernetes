@@ -66,7 +66,11 @@ kube-state-metrics: install
 	$(ANSIBLE) kube-state-metrics.yml $(INVENTORY) $(VAULT) $(LIMIT)
 
 node-exporter: install
-	$(ANSIBLE) node-exporter.yml $(INVENTORY) $(VAULT) $(LIMIT)		
+	$(ANSIBLE) node-exporter.yml $(INVENTORY) $(VAULT) $(LIMIT)
+
+riot-merch-scraper: install
+	$(ANSIBLE) riot-merch-scraper.yml $(INVENTORY) $(VAULT) $(LIMIT)		
+
 
 ########################
 ### Removal          ###
@@ -100,4 +104,7 @@ remove-kube-state-metrics: install
 	$(ANSIBLE) remove-kube-state-metrics.yml $(INVENTORY) $(VAULT) $(LIMIT)	
 
 remove-node-exporter: install
-	$(ANSIBLE) remove-node-exporter.yml $(INVENTORY) $(VAULT) $(LIMIT)	
+	$(ANSIBLE) remove-node-exporter.yml $(INVENTORY) $(VAULT) $(LIMIT)
+
+remove-riot-merch-scraper: install
+	$(ANSIBLE) remove-riot-merch-scraper.yml $(INVENTORY) $(VAULT) $(LIMIT)	
