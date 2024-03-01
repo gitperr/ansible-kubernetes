@@ -1,0 +1,6 @@
+---
+- name: Install riot-merch-scraper
+  become: true
+  hosts: rpi-control
+  roles:
+    - riot-merch-scraper/install
