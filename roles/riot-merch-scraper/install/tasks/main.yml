@@ -1,0 +1,41 @@
+---
+- name: Create postgres user
+  ansible.builtin.user:
+    name: postgres
+    uid: 1000
+    group: postgres
+
+- name: Create postgres directories
+  ansible.builtin.file:
+    path: "/home/postgres/data"
+    state: directory
+    owner: postgres
+    group: postgres
+
+- name: Hackily clean postgres directory (multiple deployments - from scratch require this.) # TODO: Remove this...
+  ansible.builtin.command: "rm -rf /home/postgres/data/*"
+
+- name: Create riot-merch-scraper directory
+  ansible.builtin.file:
+    path: "/home/riot-merch-scraper"
+    state: directory
+
+- name: Send out the necessary files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/home/riot-merch-scraper"
+    remote_src: false
+  with_fileglob: "*.yml"
+
+- name: Apply the manifests
+  ansible.builtin.command: "kubectl apply -f {{ item }}"
+  args:
+    chdir: "/home/riot-merch-scraper"
+  with_items:
+    - "pvc.yml"
+    - "configmap.yml"
+    - "deployment.yml"
+  register: status
+
+- debug:
+    msg: "{{ status }}"

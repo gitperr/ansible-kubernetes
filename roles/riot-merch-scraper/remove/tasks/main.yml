@@ -1,0 +1,17 @@
+- name: Delete the manifests
+  ansible.builtin.command: "kubectl delete -f {{ item }}"
+  args:
+    chdir: "/home/riot-merch-scraper"
+  with_items:
+    - "pvc.yml"
+    - "configmap.yml"
+    - "deployment.yml"
+  register: status
+
+- debug:
+    msg: "{{ status }}"
+
+- name: Remove riot-merch-scraper directory
+  ansible.builtin.file:
+    path: "/home/riot-merch-scraper"
+    state: absent
