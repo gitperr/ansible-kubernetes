@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: weather-station
-          image: rpi-control:31000/alpine-ruuvi:arm
+          image: rpi-control:31000/weather-station-arm:latest
           command: ["python3", "main.py"]
           ports:
             - name: metrics
@@ -22,6 +22,13 @@ spec:
           volumeMounts:
             - name: dbus-volume
               mountPath: /var/run/dbus
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/master
+                    operator: Exists
       volumes:
         - name: dbus-volume
           hostPath:

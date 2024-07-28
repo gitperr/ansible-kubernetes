@@ -8,7 +8,7 @@ LIMIT := $(if $(limit),--limit=$(limit),)
 
 # Target: install dependencies from requirements.txt
 install:
-	$(VENV) venv/bin/pip install -r $(REQUIREMENTS);
+	$(VENV) pip install -r $(REQUIREMENTS);
 
 # Target: clean up virtual environment
 clean:
