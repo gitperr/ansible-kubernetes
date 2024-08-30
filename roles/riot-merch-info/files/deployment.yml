@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: riot-merch-info
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: riot-merch-info
+  template:
+    metadata:
+      labels:
+        app: riot-merch-info
+    spec:
+      containers:
+        - name: riot-merch-info
+          image: rpi-control:31000/riot-merch-info:latest
+          ports:
+            - name: flask
+              containerPort: 9999

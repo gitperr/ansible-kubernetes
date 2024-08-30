@@ -62,6 +62,9 @@ weather-station: install
 grafana: install 
 	$(ANSIBLE) grafana.yml $(INVENTORY) $(VAULT) $(LIMIT)
 
+riot-merch-info: install 
+	$(ANSIBLE) riot-merch-info.yml $(INVENTORY) $(VAULT) $(LIMIT)	
+
 kube-state-metrics: install
 	$(ANSIBLE) kube-state-metrics.yml $(INVENTORY) $(VAULT) $(LIMIT)
 

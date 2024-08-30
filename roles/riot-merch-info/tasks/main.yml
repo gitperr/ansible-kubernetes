@@ -1,0 +1,22 @@
+- name: Create riot merch info user
+  ansible.builtin.user:
+    name: riot-merch-info
+
+- name: Send out the necessary files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/home/riot-merch-info"
+    remote_src: false
+  with_fileglob: "*.yml"
+
+- name: Apply the manifests
+  ansible.builtin.command: "kubectl apply -f {{ item }}"
+  args:
+    chdir: "/home/riot-merch-info"
+  with_items:
+    - "deployment.yml"
+    - "svc.yml"
+  register: status
+
+- debug:
+    msg: "{{ status }}"

@@ -1,0 +1,6 @@
+---
+- name: Install riot merch info
+  become: true
+  hosts: rpi-control
+  roles:
+    - riot-merch-info
