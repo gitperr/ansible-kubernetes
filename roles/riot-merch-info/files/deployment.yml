@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: riot-merch-info
-          image: rpi-control:31000/riot-merch-info:latest
+          image: rpi-control:31000/riot-merch-info-v2:latest
           ports:
             - name: flask
               containerPort: 9999
