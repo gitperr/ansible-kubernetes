@@ -18,6 +18,7 @@
   with_items:
     - "kubectl apply -f deployment-registry.yml"
     - "kubectl apply -f nodeport-registry.yml"
+    - "kubectl apply -f pv-registry.yml"
   register: status
 
 - debug:

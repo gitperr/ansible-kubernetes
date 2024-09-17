@@ -18,3 +18,10 @@ spec:
           ports:
             - name: web
               containerPort: 5000
+          volumeMounts:
+            - name: registry-data
+              mountPath: /var/lib/registry
+      volumes:
+        - name: registry-data
+          persistentVolumeClaim:
+            claimName: docker-pv
